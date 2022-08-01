@@ -1,6 +1,6 @@
 # GSoC 2022 Progress Report
-This is the official repository for my GSoC 2022 project with ML4SCI.
-Titled: **Vision Transformers for End-to-End Particle Reconstruction for the CMS Experiment.**
+This is the official repository for my GSoC 2022 project with ML4SCI.</br>
+Titled: **Vision Transformers for End-to-End Particle Reconstruction for the CMS Experiment.**</br>
 This project aims to add Vision Transformer and related models to the already present CMS E2E
 pipeline for more accurate analysis and classification.</br>
 <ins>This repository is still under development and may contain some unnecessary files</ins>.</br>
@@ -64,6 +64,9 @@ It is an extension of the previous pipeline. We take the .png files made by the
 previous pipeline and convert them to TFRecords for faster performance. The TFRecords files 
 are sharded in parts of 10240 images for each file. The files are later read by the tf.data API to prevent 
 even the slightest bottleneck. This pipeline is utilised for training on TPUs.
+The pipeline is shown below.
+
+![nfs](images/pipe2.png)
 
 The codes for converting the .png files to TFRecord files can be found [here](./TFRecord/TFRecord_Creater.ipynb)
 
