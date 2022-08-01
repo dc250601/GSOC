@@ -152,10 +152,10 @@ Although the CoAt net architecture seems to be the highest performing model for 
 very unstable for our use case. Although all the above models are Hybrids, they still contain ViTs as their backbone. The Hybrid nature totally offsets the adverse
 effects of ViTs when we use small-sized CoAt-Nets(CoAt-0), but once we start scaling them, we again start facing problems of gradient explosion and other adverse 
 effects similar to what we saw in ViTs.
-The fact is evident when we see the CoAt-1 model training [graphs](https://wandb.ai/dc250601/Coat1?workspace=user-dc250601)
+The fact is evident when we see the CoAt-1 model training [graphs](https://wandb.ai/dc250601/Coat1?workspace=user-dc250601).
 The metrics drop further when CoAt-2 is employed. This shows that CoAts are not scalable in our case.
 This led us to completely remove the ViT blocks from the CoAts and replace them with Swin blocks.
-This led to a much more stable training, as can be seen in the following [graph](https://wandb.ai/dc250601/Ensemble/runs/21zil3cn?workspace=user-dc250601)
+This led to a much more stable training, as can be seen in the following [graph](https://wandb.ai/dc250601/Ensemble/runs/21zil3cn?workspace=user-dc250601).
 The training of the above mode is highly stable and is done in stages. All the codes related to the above custom model, along with the training script, can
-be found in the following [repository](Ensemble/Eff_Swin/model.py)
+be found in the following [repository](Ensemble/Eff_Swin/model.py).
 
