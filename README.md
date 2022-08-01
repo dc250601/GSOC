@@ -67,13 +67,11 @@ even the slightest bottleneck. This pipeline is utilised for training on TPUs.
 
 The codes for converting the .png files to TFRecord files can be found [here](./TFRecord/TFRecord_Creater.ipynb)
 
-
+***
 ### Data Preprocessing
 Since the quality of Input data is of uttermost importance for any model. We have spent quite some time(~1 week)
 to simply understand it and find the most reliable pre-processing technique.
-***
-The entire experimentation Repository can be found [here]
-***
+The entire experimentation Repository can be found [here](https://github.com/dc250601/GSOC/tree/main/Dataset_Finder)</br>
 Each of them has different pre-processing techniques employed along with code to split and save the model.
 The readme file over there explains them in detail.
 To find the performance of the model on different pre-processing techniques, we trained it separately for every
@@ -82,7 +80,7 @@ one of them.
 #### Things we experimented with:-
 * Clipping extreme peaks[max suppression] in the data to highlight more subtle feature
 * Testing the amount of zero suppression which suits the best.
-For max suppression, we clipped the data channel-wise for every single image using their standard deviations.
+For max suppression, we clipped the data channel-wise for every single image using their standard deviations.</br>
 For zero suppression, we globally clipped the min value up to a certain range,
 
 #### Results
@@ -96,9 +94,9 @@ For zero suppression, we globally clipped the min value up to a certain range,
 *The metric reported is AUC for different Standard Deviations* 
 
 
-The repository with the final pre-processing codes can be found [here](https://github.com/dc250601/GSOC/tree/main/Dataset_Finder) 
+The repository with the final pre-processing codes can be found [here](./Dataset_Finder/Try-4/runner.py)</br>
 The entire WandB logs can be found [here](https://wandb.ai/dc250601/Clipped%20dataset%20Finder_try2?workspace=user-dc250601) for further inspections
-
+***
 ### Models
 
 
@@ -107,7 +105,7 @@ The entire WandB logs can be found [here](https://wandb.ai/dc250601/Clipped%20da
 and the defined models faced the problem of extreme gradient explosions and model overfitting, more experiments
 will be done later.* 
 
-### Swin Transformer
+#### Swin Transformer
 Although ViTs were very unstable and were closed to unusable, Swin was quite effective in our case.
 We initially obtained an AUC score of 0.7847
 A much higher score was later obtained(0.8082) from the above model when we trained will some more data and with better data Augmentation
@@ -116,7 +114,7 @@ The WandB logs of the initial run can be found [here](https://wandb.ai/dc250601/
 The code can be found in the following [repository](./Swin/Swin.ipynb).</br>
 
 
-### CoAt Nets 
+#### CoAt Nets 
 CoAt Nets are built by simply replacing multiple stages of the vanilla ViT with Mobinet blocks. But since the initial layers are Convolution 
 layers, the model can have some inbuilt bias of Conv layers and also possesses the flexibility of ViTs as it has both of the layers present in it.
 The CoAt Nets, when trained, shattered the previously set record by the ResNet-15 by quite some margin.
@@ -125,7 +123,7 @@ The WandB logs of the run can be found [here](https://wandb.ai/dc250601/Total_da
 The code can be found in the following [repository](./CoAt_Full_dataset/master.py).
 
 
-### MaxViTs and DaViTs
+#### MaxViTs and DaViTs
 Both of these models were trained to see the scores of the hybrid architecture of ViTs and Conv Nets.
 But neither of them could live up to our expectations since they both suffered from problems somewhat similar to the ViT and performed poorly.
 The logs can be found [here](https://wandb.ai/dc250601/New_Models?workspace=user-dc250601)
@@ -133,20 +131,20 @@ The code for MaxViT lies [here](https://github.com/dc250601/GSOC/tree/main/Ensem
 The code for DaViTs lies [here](https://github.com/dc250601/GSOC/tree/main/Ensemble/DaViT)
 
 
-### ResNet-15 
+#### ResNet-15 
 This model was simply built to benchmark with our new models. Since our project majorly deals with Transformers, we spent little time running
 and optimising them.
 Still, the code can be found [here](ResNet/ResNet.ipynb)</br>
-The logs are [here](https://wandb.ai/dc250601/kaggle_Auc_fixed/runs/arhxi56z?workspace=user-dc250601)
+The logs are [here](https://wandb.ai/dc250601/kaggle_Auc_fixed/runs/arhxi56z?workspace=user-dc250601)</br>
 *This code underperforms than what was claimed in the paper since only 1/5 th of the data was used to train this, and we did not extend our trial 
 for larger datasets since we wanted to see how this model scales with low data.
 
-### EfficientNet
+#### EfficientNet
 This model is also a popular model. This model was trained during the pre-GSoC period, but since we are comparing different models, the [link](https://github.com/dc250601/CMS-GSoC-2022/tree/main/Common%20-%20II) to this
 is also provided
 
 
-### <ins>Hybrid Swin</ins>
+#### <ins>Hybrid Swin</ins>
 Although the CoAt net architecture seems to be the highest performing model for our task, we still have a problem associated with it. ViT-like backbones are 
 very unstable for our use case. Although all the above models are Hybrids, they still contain ViTs as their backbone. The Hybrid nature totally offsets the adverse
 effects of ViTs when we use small-sized CoAt-Nets(CoAt-0), but once we start scaling them, we again start facing problems of gradient explosion and other adverse 
