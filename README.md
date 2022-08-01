@@ -140,7 +140,7 @@ and optimising them.
 Still, the code can be found [here](ResNet/ResNet.ipynb)</br>
 The logs are [here](https://wandb.ai/dc250601/kaggle_Auc_fixed/runs/arhxi56z?workspace=user-dc250601)</br>
 *This code underperforms than what was claimed in the paper since only 1/5 th of the data was used to train this, and we did not extend our trial 
-for larger datasets since we wanted to see how this model scales with low data.
+for larger datasets since we wanted to see how this model scales with low data.*
 
 #### EfficientNet
 This model is also a popular model. This model was trained during the pre-GSoC period, but since we are comparing different models, the [link](https://github.com/dc250601/CMS-GSoC-2022/tree/main/Common%20-%20II) to this
