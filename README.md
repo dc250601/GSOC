@@ -96,9 +96,7 @@ For zero suppression, we globally clipped the min value up to a certain range,
 *The metric reported is AUC for different Standard Deviations* 
 
 
-***
 The repository with the final pre-processing codes can be found [here](https://github.com/dc250601/GSOC/tree/main/Dataset_Finder) 
-***
 The entire WandB logs can be found [here](https://wandb.ai/dc250601/Clipped%20dataset%20Finder_try2?workspace=user-dc250601) for further inspections
 
 ### Models
@@ -113,26 +111,24 @@ We initially obtained an AUC score of 0.7847
 A much higher score was later obtained(0.8082) from the above model when we trained will some more data and with better data Augmentation
 as described in the previous section.
 The WandB logs of the initial run can be found [here](https://wandb.ai/dc250601/kaggle_Auc_fixed/runs/2m7wv9u6?workspace=user-dc250601)
-***
-The code can be found in the following repository.
-***
+The code can be found in the following [repository](./Swin/Swin.ipynb).
 ### CoAt Nets 
 CoAt Nets are built by simply replacing multiple stages of the vanilla ViT with Mobinet blocks. But since the initial layers are Convolution 
 layers, the model can have some inbuilt bias of Conv layers and also possesses the flexibility of ViTs as it has both of the layers present in it.
 The CoAt Nets, when trained, shattered the previously set record by the ResNet-15 by quite some margin.
 The CoAt Nets gave an AUC score of 0.8142.
 The WandB logs of the run can be found [here](https://wandb.ai/dc250601/Total_dataset/runs/2lk1n956?workspace=user-dc250601)
-***
-The code can be found in the following repository.
+The code can be found in the following [repository](./CoAt_Full_dataset/master.py).
+
 
 ### MaxViTs and DaViTs
 Both of these models were trained to see the scores of the hybrid architecture of ViTs and Conv Nets.
 But neither of them could live up to our expectations since they both suffered from problems somewhat similar to the ViT and performed poorly.
 The logs can be found [here](https://wandb.ai/dc250601/New_Models?workspace=user-dc250601)
-***
-The code for MaxViT lies [here]
-The code for DaViTs lies [here]
-***
+The code for MaxViT lies [here](https://github.com/dc250601/GSOC/tree/main/Ensemble/MaxViT)
+The code for DaViTs lies [here](https://github.com/dc250601/GSOC/tree/main/Ensemble/DaViT)
+
+
 ### ResNet-15 
 This model was simply built to benchmark with our new models. Since our project majorly deals with Transformers, we spent little time running
 and optimising them.
