@@ -54,10 +54,9 @@ The pipeline is shown below.
 
 ![nfs](./images/pipeline1.png)
 
-***
 The codes for converting the parquets to data along with the pre-processing can
-be found [here]
-***
+be found [here](./Dataset_Finder/Try-2/runner.py)
+
 #### PipeLine 2
 This pipeline is built keeping in mind performance.
 This pipeline is robust enough to serve data to a **TPU** without bottlenecking.
@@ -66,10 +65,8 @@ previous pipeline and convert them to TFRecords for faster performance. The TFRe
 are sharded in parts of 10240 images for each file. The files are later read by the tf.data API to prevent 
 even the slightest bottleneck. This pipeline is utilised for training on TPUs.
 
-***
-The codes for converting the .png files to Parquet files can be found [here]
+The codes for converting the .png files to TFRecord files can be found [here](./TFRecord/TFRecord_Creater.ipynb)
 
-***
 
 ### Data Preprocessing
 Since the quality of Input data is of uttermost importance for any model. We have spent quite some time(~1 week)
@@ -100,7 +97,7 @@ For zero suppression, we globally clipped the min value up to a certain range,
 
 
 ***
-The repository with the final pre-processing codes can be found [here] 
+The repository with the final pre-processing codes can be found [here](https://github.com/dc250601/GSOC/tree/main/Dataset_Finder) 
 ***
 The entire WandB logs can be found [here](https://wandb.ai/dc250601/Clipped%20dataset%20Finder_try2?workspace=user-dc250601) for further inspections
 
