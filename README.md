@@ -112,6 +112,19 @@ The following Tutorial will help the reader to Train the models if they want
 * Tutorial to train Hybrid EffSwin(Torch-GPU)
 * Tutorial to train Hybrid EFFSwin(Tensorrflow-TPU)
 
-#### Training Graphs
+#### Results
 
-###
+We get the following results. All scores are ROC-AUC scores
+
+|     Model Name     	|     Quark Gluon     	|     Top Quark     	|
+|--------------------	|---------------------	|-------------------	|
+|     Swin-Tiny      	|        80.83        	|       98.58       	|
+|     CoAt-Net-0     	|        81.46        	|       98.72       	|
+|   Hybrid-EffSwin   	|        81.44        	|       98.77       	|
+
+### Inference
+All the model weights are saved and stored in the following Google Drive
+* Google Drive Link
+For inference or use the following tutuorial can be followed -
+* Pytorch Inference(Quark-Gluon)
+* Tensorflow Inference(Top-Quark)
