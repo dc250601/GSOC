@@ -19,10 +19,19 @@ data. We are using the following data and constructing images(jet images) out of
 Machine Learning to analyse(in our case Classify) them. Different types of detectors or sensors
 produce different kinds of data or, in our case, jet images.
 
-These are some jet images for the Quarks and Gluons
+This a sample dataset in the Quark-Gluon dataset
+
 | HCAL | ECAL | TRACKS |
 | ---- | --- | --- |
 | ![nfs](./images/0.png) | ![nfs](./images/1.png) | ![nfs](./images/2.png) |
+
+
+This is a sample datapoint in the Top-Quark dataset
+
+
+| ![nfs](./images/0t.png) | ![nfs](./images/1t.png) | ![nfs](./images/2t.png) | ![nfs](./images/3t.png) |
+| ---- | --- | --- | --- |
+| ![nfs](./images/4t.png) | ![nfs](./images/5t.png) | ![nfs](./images/6t.png) | ![nfs](./images/7t.png) |
 
 ***
 ### Approach
