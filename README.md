@@ -1,11 +1,12 @@
-# GSoC 2022 Progress Report
-This is the official repository for my GSoC 2022 project with ML4SCI.</br>
-Titled: **Vision Transformers for End-to-End Particle Reconstruction for the CMS Experiment.**</br>
-This project aims to add Vision Transformer and related models to the already present CMS E2E
-pipeline for more accurate analysis and classification.</br>
-<ins>This repository is still under development and may contain some unnecessary files</ins>.</br>
-Note: Till completion, this report will act as **progress report** for the project and will be converted
-to detailed documentation once the development phase is over
+<h1 align="center">
+Vision Transformers for End-to-End Particle Reconstruction for the CMS Experiment</br>
+</h1>
+<div align="center">
+Official Repository for Google Summer of Code 2022.</br>
+The main purpose of this project
+is to explore the use of Vision Transformers in the domain of particle physics.</br>.</div>
+<p align="center"><img alt="GSoC Logo" src="images/GSoC.png" height = 400 ></p>
+
 ***
 ### Problem Statement
 If the reader knows what they are dealing with, I would advise proceeding further.
@@ -25,11 +26,54 @@ These are some jet images for the Quarks and Gluons
 
 ***
 ### Approach
-Previously there have been attempts to classify the images with ResNet-based architectures. In our case
-we will use Transformers, namely Vision Transformers and various state-of-the-art Transformer based models to
-achieve a somewhat higher score than the previous attempts.
+Previously there have been attempts to classify the images with ResNet-based architectures.
+In our case we will use Transformers, namely Vision Transformers and various state-of-the-art
+Transformer based architectures to achieve a somewhat higher score than the previous attempts.
+To see if our hypothesis is indeed true and the ViT are performing better we have tested the models
+across two different datasets namely the **Quark-Gluon** dataset and the **Boosted Top-Quark** dataset.
+Since the two datasets were quite different from one another two different approaches were used in training
+and deploying them.
 
-The following models were tested for the task:-
+### Data Pre-processing
+ViTs are very sensitive to data pre-processing techniques. It has often been seen that even things like Image Interpolation Techniques, if not done properly, can adversely affect the performance of Transformers-based models. In our case, the data is directly sourced from CMS Open Data, and the outputs(pixel) can be arbitrarily large for a single detector(calorimeter) hence proper normalization techniques are employed.
+We employ the following steps to ensure that the smaples or our datapoints are properly normalised and free from outliers:
+* Zero suppression for any value under 10^-3.
+* Channel Wise Z-score Normalisation across batches of size 4096.
+* Channel Wise Max value clipping with clip value set equal to 500 times the standard deviation of the pixel values.
+* Sample wise Min Max scaling.
+Although the pre-processing is same for both the datasets but the input pipelines are vastly difference due to the training environment and computational challenges.
+
+The following tutorials will help the reader to generate the processed data for training.
+* Quark-Gluon(.png type dataset)
+* Boosted Top-Quark(TFRecord dataset)
+
+### Training
+The Quark Gluon models are trained on a 2080Ti using Pytorch and the input data is in form of .png . While for the Top-Quark dataset we have used TPU-V3s for training. The models for Top-Quark dataset is written in Tensorflow and the input data is in form of TFRecords. The following diagrams best describe the input pipelines for both the types of datasets.
+
+#### Pipelines
+
+```mermaid
+  flowchart TB;
+  subgraph Quark-Gluon
+  direction TB
+  A0[Read Raw Parquet Files using PyArrow] -->B0[Pre-process the images];
+  B0 -->C0[Save the images in .png form];
+  C0 -->D0[Read them using native Pytorch Dataloaders]
+  D0 -->E0[Feed the data to a single GPU]
+  end
+  
+  subgraph Top-Quark
+  direction TB
+  A1[Read Raw Parquet Files using PyArrow] -->B1[Pre-process the images];
+  B1 -->C1[Combine the Images into chunks of data];
+  C1 -->D1[Save them into TFRecord shards]
+  D1 -->E1[Read using the tf.data pipeline]
+  E1 -->F1[Feed the data to multiple TPU cores]
+  end
+```
+#### Models
+The we trained a bunch of different models to get a basic understanding of the problem which includes
+
 * [Vision Tranformers](https://arxiv.org/abs/2010.11929)
 * [Swin Transformers](https://arxiv.org/abs/2103.14030)
 * [CoAt nets](https://arxiv.org/abs/2106.04803)
@@ -37,125 +81,37 @@ The following models were tested for the task:-
 * [DaViTs](https://arxiv.org/abs/2204.03645)
 * [Efficient Nets](https://arxiv.org/abs/1905.11946)
 * [ResNets(ResNet 15)](https://arxiv.org/abs/1512.03385)</br>
+* Hybrid EffSwin(Custom Architecture)
 
-Note: The model Vision Transformers was very unstable for our use case and hence was discarded
-***
-### Input PipeLine
-Inputs PipeLine is a crucial component when building Machine Learning Model. Moreover
-since here we are dealing with a large number of files (~700k), a good and efficient pipeline
-is a must for scalability.
+But out off the above models only a few stood out which are-
+* Swin Transformers
+* CoAt Nets
+* Hybrid EffSwin
+The above three models performed the best although Swin Transformer performed which worse to that of CoAt and Hybrid architetcure still it is kept under considersation due to the fact that the Hybrid EffSwin is built using it.
 
-#### PipeLine 1 [Depreciated]
-This pipeline was majorly used to train PyTorch-based models on GPUs. Since
-GPUs can deal with somewhat less efficient pipelines, and we need to have the model 
-up and running as early as possible this was chosen.</br>
+The model Hybrid EffSwin can be easily made by combining Swin Transformers with EfficientNet-B3. The following diagram best represent it.
+```mermaid
+flowchart TB
+subgraph Stage1
+direction TB
+A[Initialize a Swin Tiny Architecture]--Train for 50 epochs--> B[Trained Swin Transformer];
+end
 
-The pipeline is shown below.
+subgraph Stage2
+direction TB
+C[Initialise a EfficientNet-B3]--> D[Take the first two stages of the model]
+B---> E[Take the last to stages of the trained Swin Transformer]
+D--> F[Concatenate]
+E--> F[Concatenate]
+F--Train for 30-50 epochs--> G[Trained Hybrid EffSwin]
+end
+```
+The following Tutorial will help the reader to Train the models if they want
+* Tutorial to train CoAt-Net(Torch-GPU)
+* Tutorial to train CoAt-Net(Tensorflow-TPU)
+* Tutorial to train Hybrid EffSwin(Torch-GPU)
+* Tutorial to train Hybrid EFFSwin(Tensorrflow-TPU)
 
-![nfs](./images/pipeline1.png)
+#### Training Graphs
 
-The codes for converting the parquets to data along with the pre-processing can
-be found [here](./Dataset_Finder/Try-2/runner.py)
-
-#### PipeLine 2
-This pipeline is built keeping in mind performance.
-This pipeline is robust enough to serve data to a **TPU** without bottlenecking.
-It is an extension of the previous pipeline. We take the .png files made by the
-previous pipeline and convert them to TFRecords for faster performance. The TFRecords files 
-are sharded in parts of 10240 images for each file. The files are later read by the tf.data API to prevent 
-even the slightest bottleneck. This pipeline is utilised for training on TPUs.
-The pipeline is shown below.
-
-![nfs](images/pipe2.png)
-
-The codes for converting the .png files to TFRecord files can be found [here](./TFRecord/TFRecord_Creater.ipynb)
-
-***
-### Data Preprocessing
-Since the quality of Input data is of uttermost importance for any model. We have spent quite some time(~1 week)
-to simply understand it and find the most reliable pre-processing technique.
-The entire experimentation Repository can be found [here](https://github.com/dc250601/GSOC/tree/main/Dataset_Finder)</br>
-Each of them has different pre-processing techniques employed along with code to split and save the model.
-The readme file over there explains them in detail.
-To find the performance of the model on different pre-processing techniques, we trained it separately for every
-one of them.
-
-#### Things we experimented with:-
-* Clipping extreme peaks[max suppression] in the data to highlight more subtle feature
-* Testing the amount of zero suppression which suits the best.
-For max suppression, we clipped the data channel-wise for every single image using their standard deviations.</br>
-For zero suppression, we globally clipped the min value up to a certain range,
-
-#### Results
-* For Zero suppression, we could not come to any conclusion as all the models performed equally well; hence we stuck to what was originally chosen; 0.001
-* For Max Suppression, we indeed got interesting results:- </br>
-
-| 50 | 100 | 200 | 500 | 
-| --- | --- | --- | --- |
-|0.8124 | 0.8085 | 0.8068 |0.8047 |
-
-*The metric reported is AUC for different Standard Deviations* 
-
-
-The repository with the final pre-processing codes can be found [here](./Dataset_Finder/Try-4/runner.py)</br>
-The entire WandB logs can be found [here](https://wandb.ai/dc250601/Clipped%20dataset%20Finder_try2?workspace=user-dc250601) for further inspections
-***
-### Models
-
-
-#### Visual Image Transformers(ViT)
-*The code and results of this model are not added as no stable version of it could be defined
-and the defined models faced the problem of extreme gradient explosions and model overfitting, more experiments
-will be done later.* 
-
-#### Swin Transformer
-Although ViTs were very unstable and were closed to unusable, Swin was quite effective in our case.
-We initially obtained an AUC score of 0.7847
-A much higher score was later obtained(0.8082) from the above model when we trained will some more data and with better data Augmentation
-as described in the previous section.
-The WandB logs of the initial run can be found [here](https://wandb.ai/dc250601/kaggle_Auc_fixed/runs/2m7wv9u6?workspace=user-dc250601)</br>
-The code can be found in the following [repository](./Swin/Swin.ipynb).</br>
-
-
-#### CoAt Nets 
-CoAt Nets are built by simply replacing multiple stages of the vanilla ViT with Mobinet blocks. But since the initial layers are Convolution 
-layers, the model can have some inbuilt bias of Conv layers and also possesses the flexibility of ViTs as it has both of the layers present in it.
-The CoAt Nets, when trained, shattered the previously set record by the ResNet-15 by quite some margin.
-The CoAt Nets gave an AUC score of 0.8142.
-The WandB logs of the run can be found [here](https://wandb.ai/dc250601/Total_dataset/runs/2lk1n956?workspace=user-dc250601)</br>
-The code can be found in the following [repository](./CoAt_Full_dataset/master.py).
-
-
-#### MaxViTs and DaViTs
-Both of these models were trained to see the scores of the hybrid architecture of ViTs and Conv Nets.
-But neither of them could live up to our expectations since they both suffered from problems somewhat similar to the ViT and performed poorly.
-The logs can be found [here](https://wandb.ai/dc250601/New_Models?workspace=user-dc250601)
-The code for MaxViT lies [here](https://github.com/dc250601/GSOC/tree/main/Ensemble/MaxViT)</br>
-The code for DaViTs lies [here](https://github.com/dc250601/GSOC/tree/main/Ensemble/DaViT)
-
-
-#### ResNet-15 
-This model was simply built to benchmark with our new models. Since our project majorly deals with Transformers, we spent little time running
-and optimising them.
-Still, the code can be found [here](ResNet/ResNet.ipynb)</br>
-The logs are [here](https://wandb.ai/dc250601/kaggle_Auc_fixed/runs/arhxi56z?workspace=user-dc250601)</br>
-*This code underperforms than what was claimed in the paper since only 1/5 th of the data was used to train this, and we did not extend our trial 
-for larger datasets since we wanted to see how this model scales with low data.*
-
-#### EfficientNet
-This model is also a popular model. This model was trained during the pre-GSoC period, but since we are comparing different models, the [link](https://github.com/dc250601/CMS-GSoC-2022/tree/main/Common%20-%20II) to this
-is also provided
-
-
-#### <ins>Hybrid Swin</ins>
-Although the CoAt net architecture seems to be the highest performing model for our task, we still have a problem associated with it. ViT-like backbones are 
-very unstable for our use case. Although all the above models are Hybrids, they still contain ViTs as their backbone. The Hybrid nature totally offsets the adverse
-effects of ViTs when we use small-sized CoAt-Nets(CoAt-0), but once we start scaling them, we again start facing problems of gradient explosion and other adverse 
-effects similar to what we saw in ViTs.
-The fact is evident when we see the CoAt-1 model training [graphs](https://wandb.ai/dc250601/Coat1?workspace=user-dc250601).
-The metrics drop further when CoAt-2 is employed. This shows that CoAts are not scalable in our case.
-This led us to completely remove the ViT blocks from the CoAts and replace them with Swin blocks.
-This led to a much more stable training, as can be seen in the following [graph](https://wandb.ai/dc250601/Ensemble/runs/21zil3cn?workspace=user-dc250601).
-The training of the above mode is highly stable and is done in stages. All the codes related to the above custom model, along with the training script, can
-be found in the following [repository](Ensemble/Eff_Swin/model.py).
-
+###
