@@ -40,8 +40,9 @@ def parser(image,label,name):
     out = tf.train.Example(features=tf.train.Features(feature=data))
     return out
 
-BATCH_SIZE = 3200 #This is the batch size for reading the parquet files
-BATCH_TFR = BATCH_SIZE*4 #Batch size for the TFRecord files. Each TFR file will contain that many samples
+
+BATCH_SIZE = 320  # This is the batch size for reading the parquet files
+MULTIPLE = 4  # Number of ParquetFiles that will be contained in each TFRecord File
 
 def generate(pf, writer, ab):
     record_batch = pf.iter_batches(batch_size=BATCH_SIZE)
@@ -117,8 +118,7 @@ def runner(source, target):
     print("Got the following files in the source folder")
     print(files)
 
-    multiple = int(BATCH_TFR/BATCH_SIZE)
-    no_tfr = math.ceil(len(files)/multiple)
+    no_tfr = math.ceil(len(files)/MULTIPLE)
     random.shuffle(files)
     j = 0
 
