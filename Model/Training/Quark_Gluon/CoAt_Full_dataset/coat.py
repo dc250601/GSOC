@@ -14,7 +14,6 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import roc_curve
 from sklearn import metrics
-from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 import gc
 
 import torch
@@ -238,18 +237,6 @@ class CoAtNet(nn.Module):
         self.pool = nn.AvgPool2d(ih // 32, 1)
         self.fc = nn.Linear(channels[-1], num_classes, bias=False)
 
-        self.apply(self._init_weights)
-        
-    def _init_weights(self, m):
-        if isinstance(m, nn.Linear):
-            trunc_normal_(m.weight, std=.02)
-        if isinstance(m, nn.Linear) and m.bias is not None:
-            nn.init.constant_(m.bias, 0)
-        elif isinstance(m, nn.LayerNorm):
-            nn.init.constant_(m.bias, 0)
-            nn.init.constant_(m.weight, 1.0)
-            
-            
     def forward(self, x):
         x = self.s0(x)
         x = self.s1(x)
@@ -328,21 +315,3 @@ if __name__ == '__main__':
     net = coatnet_4()
     out = net(img)
     print(out.shape, count_parameters(net))
-    
-def metric(y_true, y_pred):
-    fpr, tpr, thresholds = roc_curve(y_true, y_pred)
-    auc = metrics.auc(fpr, tpr)
-    return auc
-
-def straightner(a):
-    A = np.zeros((a[0].shape[0]*len(a)))
-    start_index = 0
-    end_index = 0
-    for i in range(len(a)):
-        start_index = i*a[0].shape[0]
-        end_index = start_index+a[0].shape[0]
-        A[start_index:end_index] = a[i]
-    return A
-
-def predictor(outputs):
-    return np.argmax(outputs, axis = 1)
