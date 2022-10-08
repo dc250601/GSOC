@@ -8,7 +8,7 @@ is to explore the use of Vision Transformers in the domain of particle physics.<
 <p align="center"><img alt="GSoC Logo" src="images/GSoC.png" height = 400 ></p>
 
 ***
-### Problem Statement
+## Abstract
 If the reader knows what they are dealing with, I would advise proceeding further.
 
 In this project, we are working with multi-detector images corresponding to actual maps of low-level
@@ -34,16 +34,16 @@ This is a sample datapoint in the Top-Quark dataset
 | ![nfs](./images/4t.png) | ![nfs](./images/5t.png) | ![nfs](./images/6t.png) | ![nfs](./images/7t.png) |
 
 ***
-### Approach
+## Introduction
 Previously there have been attempts to classify the images with ResNet-based architectures.
 In our case we will use Transformers, namely Vision Transformers and various state-of-the-art
 Transformer based architectures to achieve a somewhat higher score than the previous attempts.
 To see if our hypothesis is indeed true and the ViT are performing better we have tested the models
 across two different datasets namely the **Quark-Gluon** dataset and the **Boosted Top-Quark** dataset.
 Since the two datasets were quite different from one another two different approaches were used in training
-and deploying them.
+and deploying them. The exact process is decribed below.
 
-### Data Pre-processing
+## Data Pre-processing
 ViTs are very sensitive to data pre-processing techniques. It has often been seen that even things like Image Interpolation Techniques, if not done properly, can adversely affect the performance of Transformers-based models. In our case, the data is directly sourced from CMS Open Data, and the outputs(pixel) can be arbitrarily large for a single detector(calorimeter) hence proper normalization techniques are employed.
 We employ the following steps to ensure that the smaples or our datapoints are properly normalised and free from outliers:
 * Zero suppression for any value under 10^-3.
@@ -56,10 +56,10 @@ The following tutorials will help the reader to generate the processed data for 
 * Quark-Gluon(.png type dataset)
 * Boosted Top-Quark(TFRecord dataset)
 
-### Training
+## Training
 The Quark Gluon models are trained on a 2080Ti using Pytorch and the input data is in form of .png . While for the Top-Quark dataset we have used TPU-V3s for training. The models for Top-Quark dataset is written in Tensorflow and the input data is in form of TFRecords. The following diagrams best describe the input pipelines for both the types of datasets.
 
-#### Pipelines
+### Pipelines
 
 ```mermaid
   flowchart TB;
@@ -80,7 +80,7 @@ The Quark Gluon models are trained on a 2080Ti using Pytorch and the input data 
   E1 -->F1[Feed the data to multiple TPU cores]
   end
 ```
-#### Models
+### Models
 The we trained a bunch of different models to get a basic understanding of the problem which includes
 
 * [Vision Tranformers](https://arxiv.org/abs/2010.11929)
@@ -121,7 +121,7 @@ The following Tutorial will help the reader to Train the models if they want
 * Tutorial to train Hybrid EffSwin(Torch-GPU)
 * Tutorial to train Hybrid EFFSwin(Tensorrflow-TPU)
 
-#### Results
+## Results
 
 We get the following results. All scores are ROC-AUC scores
 
