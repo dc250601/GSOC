@@ -8,6 +8,22 @@ is to explore the use of Vision Transformers in the domain of particle physics.<
 <p align="center"><img alt="GSoC Logo" src="images/GSoC.png" height = 400 ></p>
 
 ***
+
+## Table of Contents
+- [Installation](#installation)
+- [Abstract](#abstract)
+- [Introduction](#introduction)
+- [Data Pre-processing](#data-pre-processing)
+- [Training](#training)
+  * [Pipelines](#pipelines)
+  * [Models](#models)
+- [Results](#results)
+  * [Inference](#inference)
+- [Notebooks and Docs](#notebooks-and-docs)
+- [References](#references)
+- [Contributing and Reporting](#contributing-and-reporting)
+
+
 ## Installation
 
 ```shell
@@ -143,6 +159,9 @@ All the model weights are saved and stored in the following Google Drive
 For inference or use the following tutuorial can be followed -
 * Pytorch Inference(Quark-Gluon)
 * Tensorflow Inference(Top-Quark)
+
+## Notebooks and Docs
+Work to be done...
 
 ## References
 * [End-to-End Jet Classification of Quarks and Gluons with the CMS Open Data](https://arxiv.org/abs/1902.08276)
