@@ -8,6 +8,12 @@ is to explore the use of Vision Transformers in the domain of particle physics.<
 <p align="center"><img alt="GSoC Logo" src="images/GSoC.png" height = 400 ></p>
 
 ***
+## Installation
+
+```shell
+git clone https://github.com/dc250601/GSOC.git
+cd GSOC
+```
 ## Abstract
 If the reader knows what they are dealing with, I would advise proceeding further.
 
@@ -137,3 +143,16 @@ All the model weights are saved and stored in the following Google Drive
 For inference or use the following tutuorial can be followed -
 * Pytorch Inference(Quark-Gluon)
 * Tensorflow Inference(Top-Quark)
+
+## References
+* [End-to-End Jet Classification of Quarks and Gluons with the CMS Open Data](https://arxiv.org/abs/1902.08276)
+* [End-to-End Jet Classification of Boosted Top Quarks with the CMS Open Data](https://arxiv.org/abs/2104.14659)
+* [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929)
+* [Swin Transformer: Hierarchical Vision Transformer using Shifted Windows](https://arxiv.org/abs/2103.14030)
+* [CoAtNet: Marrying Convolution and Attention for All Data Sizes](https://arxiv.org/abs/2106.04803)
+* [MaxViT: Multi-Axis Vision Transformer](https://arxiv.org/abs/2204.01697)
+* [DaViT: Dual Attention Vision Transformers](https://arxiv.org/abs/2204.03645)
+* [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946)
+
+## Contributing and Reporting
+The above package is written keeping a research oriented mindset. Further interest in this field is very appreciated. To contribute to this repository feel free to make a pull request. If there are any bugs please feel free to raise an issue.
