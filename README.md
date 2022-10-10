@@ -162,10 +162,7 @@ We get the following results. All scores are ROC-AUC scores
 
 ### Inference
 All the model weights are saved and stored in the following Google Drive
-* Google Drive Link
-For inference or use the following tutuorial can be followed -
-* Pytorch Inference(Quark-Gluon)
-* Tensorflow Inference(Top-Quark)
+* [Google Drive Link](https://drive.google.com/drive/folders/1cyQhZ_UcdVrHoB1LEB97PHRcd4uqls9h?usp=sharing)
 
 ## Notebooks and Docs
 All the relevant notebooks are listed below
