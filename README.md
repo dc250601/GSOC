@@ -26,6 +26,7 @@ is to explore the use of Vision Transformers in the domain of particle physics.<
   * [Inference](#inference)
 - [Notebooks and Docs](#notebooks-and-docs)
 - [References](#references)
+- [Acknowledgement](#acknowledgement)
 - [Contributing and Reporting](#contributing-and-reporting)
 
 
@@ -194,6 +195,8 @@ All the relevant notebooks are listed below
 * [MaxViT: Multi-Axis Vision Transformer](https://arxiv.org/abs/2204.01697)
 * [DaViT: Dual Attention Vision Transformers](https://arxiv.org/abs/2204.03645)
 * [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946)
+## Acknowledgement
+A big thanks to Dr Sergei Gleyzer, for his guidance and support during the entire project period.
 
 ## Contributing and Reporting
 The above package is written keeping a research oriented mindset. Further interest in this field is very appreciated. To contribute to this repository feel free to make a pull request. If there are any bugs please feel free to raise an issue.
