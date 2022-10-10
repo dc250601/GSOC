@@ -75,8 +75,10 @@ We employ the following steps to ensure that the smaples or our datapoints are p
 Although the pre-processing is same for both the datasets but the input pipelines are vastly difference due to the training environment and computational challenges.
 
 The following tutorials will help the reader to generate the processed data for training.
-* Quark-Gluon(.png type dataset)
-* Boosted Top-Quark(TFRecord dataset)
+- Quark-Gluon(.png type dataset)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1baX8Xk1vY6sD9_RaTSLwRq_lHZEHeS60?usp=sharing)
+- Boosted Top-Quark(TFRecord dataset)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1TuF7G06Tx9GpR4Sbou8hsSj9lXYPSCgk?usp=sharing)
 
 ## Training
 The Quark Gluon models are trained on a 2080Ti using Pytorch and the input data is in form of .png . While for the Top-Quark dataset we have used TPU-V3s for training. The models for Top-Quark dataset is written in Tensorflow and the input data is in form of TFRecords. The following diagrams best describe the input pipelines for both the types of datasets.
@@ -138,10 +140,14 @@ F--Train for 30-50 epochs--> G[Trained Hybrid EffSwin]
 end
 ```
 The following Tutorial will help the reader to Train the models if they want
-* Tutorial to train CoAt-Net(Torch-GPU)
-* Tutorial to train CoAt-Net(Tensorflow-TPU)
-* Tutorial to train Hybrid EffSwin(Torch-GPU)
-* Tutorial to train Hybrid EFFSwin(Tensorrflow-TPU)
+- Tutorial to train CoAt-Net(Torch-GPU)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1xqHt1HvcpmrKyQDm5Dh4VYAdA8AiLyBN?usp=sharing)
+- Tutorial to train CoAt-Net(Tensorflow-TPU)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/156iFYun9HkdOHABVKDYiZ0lT5HmBAcpW?usp=sharing)
+- Tutorial to train Hybrid EffSwin(Torch-GPU)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1XSIBSoA-Kc5fm4y_ixcXT1m4oAA2VA6T?usp=sharing)
+- Tutorial to train Hybrid EFFSwin(Tensorrflow-TPU)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1nuRAeiFltoWtVIPZN8JWJmEUI9GqnWVj?usp=sharing)
 
 ## Results
 
@@ -161,7 +167,20 @@ For inference or use the following tutuorial can be followed -
 * Tensorflow Inference(Top-Quark)
 
 ## Notebooks and Docs
-Work to be done...
+All the relevant notebooks are listed below
+- Tutorial for Dataset creation Quark-Gluon(.png type dataset)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1baX8Xk1vY6sD9_RaTSLwRq_lHZEHeS60?usp=sharing)
+- Tutorial for Dataset creation Boosted Top-Quark(TFRecord dataset)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1TuF7G06Tx9GpR4Sbou8hsSj9lXYPSCgk?usp=sharing)
+- Tutorial to train CoAt-Net(Torch-GPU)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1xqHt1HvcpmrKyQDm5Dh4VYAdA8AiLyBN?usp=sharing)
+- Tutorial to train CoAt-Net(Tensorflow-TPU)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/156iFYun9HkdOHABVKDYiZ0lT5HmBAcpW?usp=sharing)
+- Tutorial to train Hybrid EffSwin(Torch-GPU)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1XSIBSoA-Kc5fm4y_ixcXT1m4oAA2VA6T?usp=sharing)
+- Tutorial to train Hybrid EFFSwin(Tensorrflow-TPU)
+  * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1nuRAeiFltoWtVIPZN8JWJmEUI9GqnWVj?usp=sharing)
+
 
 ## References
 * [End-to-End Jet Classification of Quarks and Gluons with the CMS Open Data](https://arxiv.org/abs/1902.08276)
