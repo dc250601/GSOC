@@ -196,7 +196,7 @@ All the relevant notebooks are listed below
 * [DaViT: Dual Attention Vision Transformers](https://arxiv.org/abs/2204.03645)
 * [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946)
 ## Acknowledgement
-A big thanks to Dr Sergei Gleyzer, for his guidance and support during the entire project period.
+A big thanks to Dr Sergei Gleyzer, for his guidance and support during the entire project period. Also special thanks to the entire ML4Sci community for their combined support and the meaningful discussions.
 
 ## Contributing and Reporting
 The above package is written keeping a research oriented mindset. Further interest in this field is very appreciated. To contribute to this repository feel free to make a pull request. If there are any bugs please feel free to raise an issue.
