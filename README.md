@@ -27,8 +27,9 @@ is to explore the use of Vision Transformers in the domain of particle physics.<
 ## Installation
 
 ```shell
-git clone https://github.com/dc250601/GSOC.git
-cd GSOC
+!git clone https://github.com/dc250601/GSOC.git
+%mv GSOC Transformers
+%cd Transformers
 ```
 ## Abstract
 If the reader knows what they are dealing with, I would advise proceeding further.
